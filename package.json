@@ -5,10 +5,11 @@
   "main": "index.js",
   "engines": {
     "node": "5.6.0",
-    "npm": "3.5.2"
+    "npm": "3.6.0"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "boost": "node --optimize_for_size --max_old_space_size=460 --gc_interval=100 index.js"
   },
   "author": "Akshay Nair <phenax5@gmail.com> (https://akshaynair.herokuapp.com)",
   "license": "ISC",

@@ -1,12 +1,17 @@
 /* Request library */
 const request= require('request');
 
-const FB_API_URL= 'https://graph.facebook.com/v2.6/me/messages';  // API URL
-const access_token= require('./tokens').access_token;             // Access token
+/* FB_API_URL:: The api url for sending messages */
+const FB_API_URL= 'https://graph.facebook.com/v2.6/me/messages';
 
-const sendTextMessage= (sender, text)=> {
+/* access_token:: Access token used for authentication */
+const access_token= require('./tokens').access_token;
 
-	/* Request data */
+
+/* Function to send a reply */
+module.exports= (sender, text)=> {
+
+	/* data:: The request data to the FB API */
 	const data= {
 		url: FB_API_URL,
 		qs: { access_token },
@@ -17,17 +22,16 @@ const sendTextMessage= (sender, text)=> {
 		}
 	};
 
-	/* Callback function for the request */
+	/* callback:: The callback function to the API request */
 	const callback= (error, response, body)=> {
+		console.log("API CALLBACK");
+
 		if (error)
 			console.log('Error sending message: ', error);
 		else if (response.body.error)
 			console.log('Error: ', response.body.error);
 	};
 
-
 	/* Request made to the FB API */
 	request(data, callback);
 };
-
-module.exports= sendTextMessage;

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ButtMan Excretes</title>
+
+<style>
+
+* {
+	box-sizing:border-box;
+	font-family: "Helvetica", "sans-serif", "Arial";
+	color:#222;
+}
+
+:root {
+	font-size:16px;
+}
+
+main {
+	max-width:500px;
+	margin:10px auto;
+}
+
+.smbt {
+	margin-bottom:100px;
+}
+
+.inpt, .btn {
+	border:none;
+	outline:none;
+	padding:10px;
+}
+
+.btn {
+	cursor:pointer;
+	float:right;
+	margin-top:-36px;
+}
+
+.inpt {
+	display:block;
+	width:100%;
+	padding-right:50px;
+	border:1px solid #ddd;
+}
+
+.chat {
+	padding:8px 15px;
+}
+
+.data {
+	height:60vh;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	border:1px solid #ddd;
+	padding:10px 0;
+}
+
+.u-You, .u-You strong {
+	color:#888;
+}
+
+.u-Buttman {
+	color:#000;
+}
+
+</style>
+
+</head>
+<body>
+<h2 style='text-align:center;padding:0.5em 0;margin:0;'>ButtMan!!</h2>
+<main>
+	<div class='data js-data'></div>
+	<form onSubmit='return false;' class='smbt js-sbmt'>
+		<input type='text' class='inpt js-inpt' placeholder='Talk to bot' />
+		<button class='btn'>Send</button>	
+	</form>
+</main>
+
+<script type='text/javascript'>
+
+var $sbmt= document.querySelector('.js-sbmt');
+var $input= document.querySelector('.js-inpt');
+var $data= document.querySelector('.js-data');
+
+var $el;
+
+var addToList= function(text, user) {
+	$el= document.createElement('div');
+	$el.className= "chat u-"+user;
+	$el.innerHTML= "<strong>"+user+"</strong>: "+text;
+	$data.appendChild($el);
+
+	$data.scrollTop+= $el.clientHeight;
+};
+
+var sendRequest= function(text) {
+	var xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			var resp= JSON.parse(xhttp.responseText);
+			addToList(resp.reply, "Buttman");
+		}
+	};
+
+	xhttp.open("GET", "/test_bot?string="+text, true);
+	xhttp.send();
+};
+
+var submitData= function() {
+	if($input.value != "" || $input.value != " ") {
+		var text= $input.value;
+		$input.value= "";
+		addToList(text, "You");
+		sendRequest(text);
+	}
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+	$sbmt.addEventListener('submit', submitData);
+});
+
+</script>
+</body>
+</html>

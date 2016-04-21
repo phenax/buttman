@@ -1,16 +1,14 @@
 /* requires */
-const express= require('express');
-const bodyParser= require('body-parser');
-
-const app= express();
+const app= require('express')();
 
 
 /* Bodyparser for POST data */
-app.use(bodyParser.json());
+app.use(require('body-parser').json());
 
 
 /* All the routes */
-require('part/routes')(app);
+require('./part/routes')(app);
+
 
 
 /* Listening to port 'whatever's free' or 3000 */
