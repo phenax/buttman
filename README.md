@@ -1,4 +1,6 @@
 # ButtMan
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/phenax/buttman.svg)](https://greenkeeper.io/)
 A messenger bot
 
 # Have a chat with it
